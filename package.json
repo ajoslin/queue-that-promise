@@ -1,0 +1,29 @@
+{
+  "name": "queue-that-promise",
+  "main": "index.js",
+  "version": "0.0.0",
+  "description": "Push promises to a queue. The queue runs. That's all.",
+  "license": "MIT",
+  "repository": "ajoslin/queue-that-promise",
+  "author": {
+    "name": "Andrew Joslin",
+    "email": "andrewtjoslin@gmail.com",
+    "url": "ajoslin.com"
+  },
+  "scripts": {
+    "test": "standard && tape test.js"
+  },
+  "keywords": [
+    "promise",
+    "queue",
+    "minimal"
+  ],
+  "devDependencies": {
+    "bluebird": "~3.4.1",
+    "standard": "^7.0.0",
+    "tape": "^4.0.0"
+  },
+  "files": [
+    "*.js"
+  ]
+}
