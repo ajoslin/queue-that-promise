@@ -10,7 +10,7 @@ $ npm install --save queue-that-promise
 
 ## Usage
 
-The example below uses Bluebird's `[Promise.delay](http://bluebirdjs.com/docs/api/promise.delay.html)` to more easily show the functionality.
+The example below uses Bluebird's [`Bluebird.delay`](http://bluebirdjs.com/docs/api/promise.delay.html) to make an easily digestable example.
 
 ```js
 var Queue = require('queue-that-promise')
