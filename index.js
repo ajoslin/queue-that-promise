@@ -4,9 +4,11 @@ module.exports = PromiseQueue
 
 function PromiseQueue () {
   var queue = []
+  var doneCallbacks = []
 
   return {
-    add: add
+    add: add,
+    done: done
   }
 
   function add (task) {
@@ -28,6 +30,14 @@ function PromiseQueue () {
     })
   }
 
+  function done () {
+    if (queue.length === 0) return Promise.resolve()
+
+    return new Promise(function (resolve) {
+      doneCallbacks.push(resolve)
+    })
+  }
+
   function run (task) {
     return task()
       .then(runNext)
@@ -36,7 +46,13 @@ function PromiseQueue () {
 
   function runNext () {
     queue.shift()
-    if (!queue.length) return
+    if (!queue.length) {
+      doneCallbacks.forEach(function (callback) {
+        callback()
+      })
+      doneCallbacks.length = 0
+      return
+    }
 
     return run(queue[0])
   }

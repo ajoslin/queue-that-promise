@@ -2,6 +2,7 @@
 
 var test = require('tape')
 var Bluebird = require('bluebird')
+var nextTick = require('next-tick')
 var Queue = require('./')
 
 test('resolve', function (t) {
@@ -11,6 +12,36 @@ test('resolve', function (t) {
   queue.add(Promise.resolve.bind(Promise, 1))
     .then((result) => t.equal(result, 1))
     .catch(t.fail)
+})
+
+test('.done() on empty', function (t) {
+  t.plan(1)
+  var queue = Queue()
+  queue.done().then(() => t.end())
+})
+
+test.only('.done() after all tasks', function (t) {
+  var called = false
+  t.plan(2)
+
+  var queue = Queue()
+  var resolveOne, resolveTwo
+
+  queue.add(() => new Promise((resolve) => { resolveOne = resolve }))
+    .then(() => {
+      t.equal(called, false)
+      nextTick(resolveTwo)
+    })
+
+  queue.add(() => new Promise((resolve) => { resolveTwo = resolve }))
+    .then(() => {
+      nextTick(() => t.equal(called, true))
+    })
+
+  queue.done().then(function (t) {
+    called = true
+  })
+  resolveOne()
 })
 
 test('reject', function (t) {

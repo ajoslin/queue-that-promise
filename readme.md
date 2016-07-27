@@ -34,6 +34,10 @@ queue.add(() => Bluebird.delay(50, Promise.resolve('50ms after the second'))
 
 Returns a queue instance.
 
+#### `queue.done() -> Promise`
+
+Returns a promise that will be resolved once the queue is empty.
+
 #### `queue.add(callback<Promise> | Array<callback<Promise>>) -> Promise`
 
 Adds a callback or multiple callbacks to the queue.

@@ -20,6 +20,7 @@
   ],
   "devDependencies": {
     "bluebird": "~3.4.1",
+    "next-tick": "~1.0.0",
     "standard": "^7.0.0",
     "tape": "^4.0.0"
   },
