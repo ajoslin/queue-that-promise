@@ -7,8 +7,13 @@ function PromiseQueue () {
   var doneCallbacks = []
 
   return {
+    count: count,
     add: add,
     done: done
+  }
+
+  function count () {
+    return queue.length
   }
 
   function add (task) {

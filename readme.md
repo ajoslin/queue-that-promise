@@ -46,6 +46,10 @@ The callback will run after all previously added callbacks have finished.
 
 Returns a promise that will be resolved or rejected once the given callback's returned promise is resolved or rejected.
 
+#### `queue.count() -> number`
+
+Returns the current length of the queue.
+
 ## License
 
 MIT © [Andrew Joslin](http://ajoslin.com)

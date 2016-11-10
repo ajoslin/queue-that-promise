@@ -15,12 +15,11 @@ test('resolve', function (t) {
 })
 
 test('.done() on empty', function (t) {
-  t.plan(1)
   var queue = Queue()
   queue.done().then(() => t.end())
 })
 
-test.only('.done() after all tasks', function (t) {
+test('.done() after all tasks', function (t) {
   var called = false
   t.plan(2)
 
@@ -84,4 +83,18 @@ test('sequences', function (t) {
     .then(function () {
       t.deepEqual(results, ['0:success', '1:fail', '2:success'])
     })
+})
+
+test('count', function (t) {
+  var queue = Queue()
+
+  t.equal(queue.count(), 0)
+
+  queue.add(() => 1)
+  t.equal(queue.count(), 1)
+
+  queue.add(() => 2)
+  t.equal(queue.count(), 2)
+
+  t.end()
 })
