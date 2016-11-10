@@ -1,7 +1,7 @@
 {
   "name": "queue-that-promise",
   "main": "index.js",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Push promises to a queue. The queue runs. That's all.",
   "license": "MIT",
   "repository": "ajoslin/queue-that-promise",
