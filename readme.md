@@ -10,22 +10,28 @@ $ npm install --save queue-that-promise
 
 ## Usage
 
-The example below uses Bluebird's [`Bluebird.delay`](http://bluebirdjs.com/docs/api/promise.delay.html) to make the example easy to understand.
-
 ```js
 var Queue = require('queue-that-promise')
-var Bluebird = require('bluebird')
-
 var queue = Queue()
 
-queue.add(() => Bluebird.delay(100, Promise.resolve('100ms later'))
-  .then((result) => assert.equal(result, '100ms later'))
+queue.add(() => new Promise((resolve) => setTimeout(resolve, 100))
+  .then(() => console.log('first'))
 
-queue.add(() => Bluebird.delay(100, Promise.reject('100ms after the first'))
-  .catch((error) => assert.equal(error, '100ms after the first'))
+queue.add(() => new Promise((resolve) => setTimeout(resolve, 100))
+  .then(() => console.log('second'))
 
-queue.add(() => Bluebird.delay(50, Promise.resolve('50ms after the second'))
-  .then((result) => assert.equal(result, '50ms after the second'))
+queue.add(() => new Promise((resolve) => setTimeout(resolve, 100))
+  .then(() => console.log('third'))
+
+queue.done().then(() => console.log('done'))
+
+// Wait 100ms...
+// => "first"
+// Wait 100ms...
+// => "second"
+// Wait 100ms...
+// => "third"
+// => "done"
 ```
 
 ## API
