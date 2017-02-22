@@ -1,6 +1,6 @@
 'use strict'
 
-module.exports = PromiseQueue
+module.exports = exports.default = PromiseQueue
 
 function PromiseQueue () {
   var queue = []
@@ -17,14 +17,12 @@ function PromiseQueue () {
   }
 
   function add (task) {
-    if (Array.isArray(task)) {
-      return Promise.all(task.map(add))
-    }
+    if (Array.isArray(task)) return Promise.all(task.map(add))
 
     return new Promise(function (resolve, reject) {
-      queue.push(function wrapTask () {
+      queue.push(function () {
         var result = Promise.resolve(task())
-        result.then(resolve).catch(reject)
+        result.then(resolve, reject)
 
         return result
       })
@@ -44,9 +42,7 @@ function PromiseQueue () {
   }
 
   function run (task) {
-    return task()
-      .then(runNext)
-      .catch(runNext)
+    return task().then(runNext, runNext)
   }
 
   function runNext () {
