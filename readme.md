@@ -1,6 +1,6 @@
 # queue-that-promise [![Build Status](https://travis-ci.org/ajoslin/queue-that-promise.svg?branch=master)](https://travis-ci.org/ajoslin/queue-that-promise)
 
-> Push promises to a queue. The queue runs in order. That's all.
+> Push promises to a queue. The queue runs in order. That's all. 500b gzipped.
 
 ## Install
 
